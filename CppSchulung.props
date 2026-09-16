@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  CppSchulung.props — gemeinsame Compiler-/Linker-Einstellungen für ALLE
+  Projekte der Solution. Wird von jedem vs/*.vcxproj importiert, damit die
+  Einstellungen an genau einer Stelle stehen.
+
+  Entspricht dem CMakeLists.txt:  C++23, /W4, /permissive- (Konformitätsmodus),
+  /Zc:__cplusplus. Zusätzlich /utf-8, damit MSVC die UTF-8-Quelldateien
+  (Umlaute in Kommentaren und Strings) korrekt liest.
+
+  Sprachstandard: stdcpplatest = /std:c++latest = C++23 (in VS 2022 als
+  "Vorschau" bezeichnet; std::expected ab 17.3, std::print ab 17.7). Wer
+  konservativ bleiben will, setzt stdcpp20 — alle Demos kompilieren auch damit,
+  die C++23-Beispiele in 10_modern_cpp.cpp sind per Feature-Test-Makro geschützt.
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+
+  <PropertyGroup>
+    <!-- Alle Projekte liegen im selben Ordner: eigene Zwischen-/Ausgabeordner
+         pro Projekt, sonst überschreiben sich die Builds gegenseitig. -->
+    <OutDir>$(SolutionDir)build-vs\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)build-vs\obj\$(ProjectName)\$(Configuration)\</IntDir>
+    <!-- Arbeitsverzeichnis beim Debuggen (F5) = src/, damit z. B. die TempFile-
+         Übung ihre Datei neben den Quellen anlegt. -->
+    <LocalDebuggerWorkingDirectory>$(SolutionDir)</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LinkIncremental Condition="'$(Configuration)'=='Debug'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)'=='Release'">false</LinkIncremental>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/utf-8 /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+</Project>
