@@ -37,3 +37,55 @@ struct Node {
         std::cout << "  - Node '" << name << "'\n";
     }
 };
+
+
+class Sensor {
+public:
+    explicit Sensor(std::string name) : name_{ std::move(name) }
+    {
+        std::cout << "  + Sensor '" << name_ << "' konstruiert\n";
+    }
+    ~Sensor()
+    {
+        std::cout << "  - Sensor '" << name_ << "' zerstört\n";
+    }
+
+    virtual double read() const = 0;
+
+    const std::string& name() const noexcept { return name_; }
+
+private:
+    std::string name_;
+};
+
+
+class Temperature : public Sensor {
+public:
+    using Sensor::Sensor;
+    double read() const override { return 21.5; }
+};
+
+class Pressure : public Sensor {
+public:
+    using Sensor::Sensor;
+    double read() const override { return 1013.25; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
