@@ -21,3 +21,19 @@ public:
 private:
     std::string name_;
 };
+
+
+struct Node {
+    std::string            name;
+    std::shared_ptr<Node>  child;
+    std::weak_ptr<Node>    parent;   // weak! — bricht den Zyklus
+
+    explicit Node(std::string n) : name{std::move(n)}
+    {
+        std::cout << "  + Node '" << name << "'\n";
+    }
+    ~Node()
+    {
+        std::cout << "  - Node '" << name << "'\n";
+    }
+};
