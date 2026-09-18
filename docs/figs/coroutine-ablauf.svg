@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 800 392" role="img" aria-labelledby="ca-title ca-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="ca-title">co_yield: Kontrolle pendelt zwischen Verbraucher und Coroutine</title>
+  <desc id="ca-desc">Sequenzdiagramm: der Aufruf count_to(3) legt den Coroutine-Frame an, ohne zu laufen. begin() und jedes ++it rufen resume(), die Coroutine läuft bis zum nächsten co_yield, reicht den Wert heraus und pausiert. Nach dem dritten Wert läuft sie bis zum Funktionsende, done() wird wahr, der Generator-Destruktor zerstört den Frame.</desc>
+
+  <defs>
+    <marker id="ca-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#64748b"/>
+    </marker>
+    <marker id="ca-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#2563eb"/>
+    </marker>
+    <style>
+      .sans { font-family: 'Inter', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .mono { font-family: 'JetBrains Mono', Menlo, Consolas, monospace; }
+      .lbl  { font-size: 12px; text-anchor: middle; }
+      .lbl-bg { fill: #f8fafc; }
+      .ctrl { stroke: #64748b; stroke-width: 1; fill: none; }
+      .yield { stroke: #2563eb; stroke-width: 1.2; fill: none; stroke-dasharray: 5,4; }
+      .act { fill: rgba(37,99,235,0.08); stroke: #64748b; stroke-width: 0.8; }
+      .act-accent { fill: rgba(37,99,235,0.14); stroke: #2563eb; stroke-width: 0.8; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#f8fafc"/>
+
+  <!-- Lifelines -->
+  <line x1="176" y1="64" x2="176" y2="372" stroke="rgba(30,41,59,0.22)" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="592" y1="64" x2="592" y2="372" stroke="rgba(30,41,59,0.22)" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Aktivierung Coroutine: läuft nur zwischen resume() und co_yield -->
+  <rect class="act-accent" x="588" y="120" width="8" height="32"/>
+  <rect class="act-accent" x="588" y="184" width="8" height="32"/>
+  <rect class="act-accent" x="588" y="248" width="8" height="32"/>
+  <rect class="act-accent" x="588" y="312" width="8" height="32"/>
+
+  <!-- Aktivierung Verbraucher: hat die Kontrolle, während die Coroutine pausiert -->
+  <rect class="act" x="172" y="64"  width="8" height="56"/>
+  <rect class="act" x="172" y="152" width="8" height="32"/>
+  <rect class="act" x="172" y="216" width="8" height="32"/>
+  <rect class="act" x="172" y="280" width="8" height="32"/>
+  <rect class="act" x="172" y="344" width="8" height="28"/>
+
+  <!-- 1: Aufruf legt den Frame an, nichts läuft (lazy) -->
+  <path class="ctrl" d="M 180 88 L 584 88" marker-end="url(#ca-arrow)"/>
+  <rect class="lbl-bg" x="248" y="64" width="272" height="16" rx="2"/>
+  <text class="mono lbl" x="384" y="76" fill="#64748b">count_to(3): Frame angelegt, läuft noch nicht</text>
+
+  <!-- 2: begin() -> resume() -->
+  <path class="ctrl" d="M 180 120 L 584 120" marker-end="url(#ca-arrow)"/>
+  <rect class="lbl-bg" x="312" y="96" width="144" height="16" rx="2"/>
+  <text class="mono lbl" x="384" y="108" fill="#64748b">begin() → resume()</text>
+
+  <!-- 3: co_yield 1 -->
+  <path class="yield" d="M 584 152 L 188 152" marker-end="url(#ca-arrow-accent)"/>
+  <rect class="lbl-bg" x="296" y="128" width="176" height="16" rx="2"/>
+  <text class="mono lbl" x="384" y="140" fill="#2563eb">co_yield 1 · pausiert</text>
+
+  <!-- 4: ++it -> resume() -->
+  <path class="ctrl" d="M 180 184 L 584 184" marker-end="url(#ca-arrow)"/>
+  <rect class="lbl-bg" x="320" y="160" width="128" height="16" rx="2"/>
+  <text class="mono lbl" x="384" y="172" fill="#64748b">++it → resume()</text>
+
+  <!-- 5: co_yield 2 -->
+  <path class="yield" d="M 584 216 L 188 216" marker-end="url(#ca-arrow-accent)"/>
+  <rect class="lbl-bg" x="296" y="192" width="176" height="16" rx="2"/>
+  <text class="mono lbl" x="384" y="204" fill="#2563eb">co_yield 2 · pausiert</text>
+
+  <!-- 6: ++it -> resume() -->
+  <path class="ctrl" d="M 180 248 L 584 248" marker-end="url(#ca-arrow)"/>
+  <rect class="lbl-bg" x="320" y="224" width="128" height="16" rx="2"/>
+  <text class="mono lbl" x="384" y="236" fill="#64748b">++it → resume()</text>
+
+  <!-- 7: co_yield 3 -->
+  <path class="yield" d="M 584 280 L 188 280" marker-end="url(#ca-arrow-accent)"/>
+  <rect class="lbl-bg" x="296" y="256" width="176" height="16" rx="2"/>
+  <text class="mono lbl" x="384" y="268" fill="#2563eb">co_yield 3 · pausiert</text>
+
+  <!-- 8: ++it -> resume() -->
+  <path class="ctrl" d="M 180 312 L 584 312" marker-end="url(#ca-arrow)"/>
+  <rect class="lbl-bg" x="320" y="288" width="128" height="16" rx="2"/>
+  <text class="mono lbl" x="384" y="300" fill="#64748b">++it → resume()</text>
+
+  <!-- 9: Funktionsende -->
+  <path class="ctrl" d="M 584 344 L 188 344" stroke-dasharray="5,4" marker-end="url(#ca-arrow)"/>
+  <rect class="lbl-bg" x="248" y="320" width="272" height="16" rx="2"/>
+  <text class="mono lbl" x="384" y="332" fill="#64748b">Funktionsende → done() == true</text>
+
+  <!-- Akteure -->
+  <rect x="80" y="16" width="192" height="48" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1"/>
+  <text class="sans" x="176" y="36" fill="#0f172a" font-size="16" font-weight="600" text-anchor="middle">Verbraucher</text>
+  <text class="mono" x="176" y="54" fill="#64748b" font-size="12" text-anchor="middle">for (int x : count_to(3))</text>
+
+  <rect x="480" y="16" width="224" height="48" rx="6" fill="rgba(37,99,235,0.08)" stroke="#2563eb" stroke-width="1.2"/>
+  <text class="sans" x="592" y="36" fill="#0f172a" font-size="16" font-weight="600" text-anchor="middle">Coroutine</text>
+  <text class="mono" x="592" y="54" fill="#64748b" font-size="12" text-anchor="middle">Frame überlebt jede Pause</text>
+
+  <!-- Fußzeilen -->
+  <text class="mono" x="176" y="384" fill="#64748b" font-size="12" text-anchor="middle">it == end(), Schleife fertig</text>
+  <text class="mono" x="592" y="384" fill="#64748b" font-size="12" text-anchor="middle">~generator → destroy(): Frame weg</text>
+</svg>
