@@ -1,5 +1,7 @@
 # C++-Schulung — Installations-Check (CPP_umsteiger)
 
+**Folien zur Schulung:** <https://grigory-consulting.github.io/cpp_umsteiger2/>
+
 Bitte **vor der Schulung** einmal durchlaufen lassen (5 Minuten). Wenn am Ende
 `ALLES OK` steht, bauen und laufen alle Übungen und Demos der Schulung auf Ihrem
 Rechner — das Projekt verwendet exakt dieselben Compiler-Einstellungen.
