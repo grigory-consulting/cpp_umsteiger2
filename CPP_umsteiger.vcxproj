@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   CPP_umsteiger.vcxproj — Installations-Check für die C++-Schulung.
-  Einstellungen sind identisch mit denen der Schulungsprojekte:
+  Einstellungen sind identisch mit vs/CppSchulung.props der Schulungs-Solution:
   x64, /std:c++latest, /W4, /permissive-, /utf-8, _CRT_SECURE_NO_WARNINGS.
   Toolset: v143 (VS 2022), unter VS 2026 automatisch v145.
 -->

@@ -1,5 +1,9 @@
 .vs/
 build-vs/
+build/
+x64/
+Debug/
+Release/
 *.vcxproj.user
 *.suo
 installcheck_tmp.txt

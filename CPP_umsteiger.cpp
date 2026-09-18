@@ -2,11 +2,10 @@
 // CPP_umsteiger.cpp — Installations-Check für die C++-Schulung
 //
 // Wenn dieses Programm baut und am Ende "ALLES OK" meldet, bauen und laufen
-// alle Demos und Übungen der Schulung auf diesem Rechner. Das Projekt benutzt
-// exakt dieselben Compiler-Einstellungen wie die Schulung:
+// alle Projekte der Schulungs-Solution auf diesem Rechner.
+// Das Projekt benutzt exakt dieselben Compiler-Einstellungen wie die Schulung:
 // x64, /std:c++latest (C++23), /W4, /permissive-, /utf-8.
 //
-// Ausführen: CPP_umsteiger.sln öffnen → F5. Die Konsole bleibt am Ende offen.
 // =============================================================================
 
 #include "console_utf8.h"   // Windows-Konsole auf UTF-8 — dieselbe Datei wie in der Schulung

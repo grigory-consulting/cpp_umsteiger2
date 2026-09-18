@@ -17,8 +17,7 @@ Version prüfen: Visual Studio → *Hilfe → Info*. Steht dort 17.12 oder klein
 
 ## Ablauf
 
-1. Projekt herunterladen: oben **Code → Download ZIP** (oder `git clone`) und an einen
-   beliebigen lokalen Ort entpacken — nicht auf ein Netzlaufwerk.
+1. Ordner `CPP_umsteiger` an einen beliebigen lokalen Ort entpacken (nicht auf ein Netzlaufwerk).
 2. **`CPP_umsteiger.sln` doppelklicken.** Erscheint eine Sicherheitsabfrage („Vertrauen Sie diesem
    Projekt?") → bestätigen. Erscheint „Projekte neu ausrichten" → OK.
 3. Oben in der Symbolleiste muss **`x64`** stehen (nicht `x86`), Konfiguration `Debug` oder `Release` — egal.
@@ -75,11 +74,11 @@ Bei allem anderen: Inhalt des Fensters **Ausgabe (Erstellen)** kopieren und mits
 
 ## Was der Check abdeckt
 
-| Prüfpunkt | Wofür es in der Schulung gebraucht wird |
+| Prüfpunkt | Schulungsprojekt(e), die es brauchen |
 |---|---|
-| `/std:c++latest`, `<format>`, `<ranges>`, `<span>`, `<concepts>`, `<numbers>` | alle Demos und Übungen |
-| `<expected>`, `<print>` | Kapitel „Modern C++ (C++23)" |
-| `<generator>` (VS ≥ 17.13) | Kapitel „Coroutines" |
-| Threads | Kapitel „Multithreading" |
-| `/utf-8` + Konsole UTF-8 | alle (Umlaute in den Ausgaben) |
-| Arbeitsverzeichnis beschreibbar | RAII-Übung (temporäre Datei anlegen) |
+| `/std:c++latest`, `<format>`, `<ranges>`, `<span>`, `<concepts>`, `<numbers>` | alle Demos (01–11), Übungen 03/06b/07b |
+| `<expected>`, `<print>` | `10_modern_cpp` |
+| `<generator>` (VS ≥ 17.13) | `10b_generator` |
+| Threads | `11_multithreading`, `backup_d_threading_traps` |
+| `/utf-8` + Konsole UTF-8 | alle (Umlaute in Ausgaben) |
+| Arbeitsverzeichnis beschreibbar | Übung `06b_raii_uebung` (TempFile) |
